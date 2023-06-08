@@ -1,11 +1,14 @@
 public class Main {
+
     public static void main(String[] args) {
-        Caja caja = new Caja(10, 20, 30, Caja.Unidad.CM);
-        System.out.println("Volumen de la caja: " + caja.getVolumen() + " m³");
+        Caja a = new CajaCarton(50, 160, 140);
+        a.etiqueta = "Dirección envío";
+        System.out.println(a);
+        System.out.println("Volumen: " + a.getVolumen());
 
-        caja.setEtiqueta("Caja frágil");
-        System.out.println("Etiqueta de la caja: " + caja.getEtiqueta());
-
-        System.out.println(caja.toString());
+        CajaCarton b = new CajaCarton(74.6, 45.3, 90);
+        b.etiqueta = 66;
+        System.out.println(b);
+        System.out.println("Volumen: " + b.getVolumen());
     }
 }

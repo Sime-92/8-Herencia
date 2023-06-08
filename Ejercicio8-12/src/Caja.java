@@ -1,39 +1,35 @@
+
 public class Caja {
-    private final int ancho;
-    private final int alto;
-    private final int fondo;
-    private String etiqueta;
-    private Unidad unidad;
+    public enum Unidad {CM, M} //centímetros y metros como posibles unidades de medida
 
-    public enum Unidad {
-        CM, M
-    }
+    protected final double ancho, alto, fondo; //dimensiones
+    protected final Unidad unid; //unidades de medida
+    protected double volumen; //el volumen lo calculamos siempre em metros cúbicos
+    public String etiqueta; //permitimos que la etiqueta se modifique libremente
 
-    public Caja(int ancho, int alto, int fondo, Unidad unidad) {
+    public Caja(double ancho, double alto, double fondo, Unidad unid) {
         this.ancho = ancho;
         this.alto = alto;
         this.fondo = fondo;
-        this.unidad = unidad;
-    }
+        this.unid = unid;
 
-    public double getVolumen() {
-        double volumen = ancho * alto * fondo;
-        if (unidad == Unidad.CM) {
-            volumen /= 1000000; // Convertir de cm³ a m³
+        switch (unid) { //el volumen se calcula siempre en metros cúbicos
+            case CM:
+                volumen = (ancho / 100) * (alto / 100) * (fondo / 100); //pasamos a metros
+                break;
+            case M:
+                volumen = ancho * alto * fondo; //las medidas ya están en metros
+                break;
         }
+    }
+
+    //devuelve la capacidad de la caja, siempre en metros cúbicos
+    public double getVolumen() {
         return volumen;
-    }
-
-    public void setEtiqueta(String etiqueta) {
-        this.etiqueta = etiqueta;
-    }
-
-    public String getEtiqueta(){
-        return etiqueta;
     }
 
     @Override
     public String toString() {
-        return "Caja: " + ancho + "x" + alto + "x" + fondo + " " + unidad + ", Etiqueta: " + etiqueta;
+        return ancho + "x" + alto + "x" + fondo + " " + unid.toString() + "\n" + etiqueta;
     }
 }
